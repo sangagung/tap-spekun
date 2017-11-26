@@ -41,35 +41,61 @@ def processType():
         lcd.write_string(digitPressed)
     return digitPressed
 
+def server_pinjam():
+    #send 'pinjam' signal to server
+
 def pinjam():
     lcd.cursor_pos(0,0)
     lcd.write_string(u"Nomor Sepeda?")
     no_sepeda = processType()
     lcd.clear()
     lcd.cursor_pos(0,0)
-    lcd.write_string(u"Pnjm Spd " + no_sepeda + "?")
+    lcd.write_string("Pnjm Spd " + no_sepeda + "?")
     lcd.cursor_pos(1,0)
-    lcd.write_string(u"1:Ya 2:No 3:Back")
+    lcd.write_string("1:Ya 2:No")
     opt = keypad.registerKeyPressHandler(processKey)
     lcd.clear()
     if(opt == 1):
         server_pinjam()
         lcd.cursor_pos(0,0)
-        lcd.write_string(u"Yay terpinjam")
+        lcd.write_string("Yay terpinjam")
         time.sleep(5)
-        return 1
     elif(opt == 2):
-        return 2
+        opt = pinjam()
+    else:
+        wrong_button("Pnjm Spd " + no_sepeda + "?", "1:Ya 2:No")
+        opt = pinjam()
+    return opt
 
+def wrong_button(text_up, text_down):
+    lcd.clear()
+    lcd.cursor_pos(0,0)
+    lcd.write_string("Teken yg bener!")
+    time.sleep(3)
+    lcd.clear()
+    lcd.cursor_pos(0,0)
+    lcd.write_string(text_up)
+    lcd.cursor_pos(1,0)
+    lcd.write_string(text_down)
+
+def kembali():
+    server_kirim()
+    
+def wait_input(switch):
+    while not GPIO.input(switch):
+        time.sleep(0.01)
 
 while True:
     lcd.cursor_pos(0,0)
-    lcd.write_string(u"Pinjam/Kembali?")
+    lcd.write_string("Pinjam/Kembali?")
     lcd.cursor_pos(1,0)
-    lcd.write_string(u"1:P 2:K 3:Back")
+    lcd.write_string("1:P 2:K 3:Back")
     option = keypad.registerKeyPressHandler(processKey)
     lcd.clear()
     if(option == 1):
-        sukses_pinjam = 0
-        while sukses_pinjam != 1
-            sukses_pinjam = pinjam()
+        pinjam()
+    elif (option == 2):
+        kembali()
+    else:
+        lcd.clear()
+        lcd.write_string("Salah Pencet")
