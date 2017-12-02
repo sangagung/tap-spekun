@@ -12,15 +12,15 @@ KEYPAD = [
         ["*","0","#","D"]
 ]
 
-COL_PINS = [0,5,6,13] # BCM numbering
-ROW_PINS = [19,26,20,21] # BCM numbering
+COL_PINS = [13,15,19,21] # BCM numbering
+ROW_PINS = [3,5,7,11] # BCM numbering
 
 
 factory = rpi_gpio.KeypadFactory()
 
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 
-lcd = CharLCD(cols=16, rows=2, pin_rs=37, pin_e=35, pins_data=[40, 38, 36, 32, 33, 31, 29, 23])
+lcd = CharLCD(cols=16, rows=2, pin_rs=2 pin_e=6, pins_data=[26, 24, 22, 18, 16, 12, 2, 4])
 
 def processPK(key):
     if (key=="1"):
