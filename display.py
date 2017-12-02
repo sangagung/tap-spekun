@@ -20,7 +20,7 @@ factory = rpi_gpio.KeypadFactory()
 
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 
-lcd = CharLCD(cols=16, rows=2, pin_rs=2 pin_e=6, pins_data=[26, 24, 22, 18, 16, 12, 2, 4])
+lcd = CharLCD(cols=16, rows=2, pin_rs=2, pin_e=6, pins_data=[26, 24, 22, 18, 16, 12, 2, 4])
 
 def processPK(key):
     if (key=="1"):
@@ -40,9 +40,6 @@ def processType():
         lcd.cursor_pos(1,len(digitPressed))
         lcd.write_string(digitPressed)
     return digitPressed
-
-def server_pinjam():
-    #send 'pinjam' signal to server
 
 def pinjam():
     lcd.cursor_pos(0,0)
