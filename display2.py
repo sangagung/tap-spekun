@@ -67,6 +67,6 @@ class HD44780:
                 self.cmd(ord(char),True)
 
 if __name__ == '__main__':
-
     lcd = HD44780()
     lcd.message("Raspberry Pi\n  Take a byte!")
+    print "SASAKN"
