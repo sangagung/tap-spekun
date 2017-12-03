@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 class HD44780:
 
-    def __init__(self, pin_rs=7, pin_e=8, pins_db=[25, 24, 23, 18]):
+    def __init__(self, pin_rs=8, pin_e=7, pins_db=[25, 24, 23, 18]):
 
         self.pin_rs=pin_rs
         self.pin_e=pin_e
@@ -31,7 +31,7 @@ class HD44780:
     def cmd(self, bits, char_mode=False):
         """ Send command to LCD """
 
-        sleep(0.2)
+        sleep(0.001)
         bits=bin(bits)[2:].zfill(8)
 
         GPIO.output(self.pin_rs, char_mode)
@@ -67,7 +67,6 @@ class HD44780:
                 self.cmd(ord(char),True)
 
 if __name__ == '__main__':
-    GPIO.cleanup()
     lcd = HD44780()
     lcd.message("Raspberry Pi\n  Take a byte!")
     print "SASAKN"
