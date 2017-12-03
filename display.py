@@ -61,7 +61,7 @@ def pinjam():
     lcd.write_string("Pnjm Spd " + no_sepeda + "?")
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:Ya 2:No")
-    opt = keypad.registerKeyPressHandler(processPK)
+    opt = keypad.registerKeyPressHandler(processType)
     print opt
     lcd.clear()
     if(opt == 1):
@@ -99,7 +99,7 @@ while True:
     lcd.write_string("Pinjam/Kembali?")
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:P 2:K 3:Back")
-    option = keypad.registerKeyPressHandler(processPK)
+    option = keypad.registerKeyPressHandler(processType)
     print option
     lcd.clear()
     if(option == 1):
