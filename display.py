@@ -34,6 +34,7 @@ keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PI
 lcd = CharLCD(cols=16, rows=2, pin_rs=pin_rs, pin_e=pin_e, pins_data=pins_data, numbering_mode=GPIO.BCM)
 
 def processPK(key):
+    print key
     if (key=="1"):
         return 1
     elif (key=="2"):
@@ -61,7 +62,7 @@ def pinjam():
     lcd.write_string("Pnjm Spd " + no_sepeda + "?")
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:Ya 2:No")
-    opt = keypad.registerKeyPressHandler(processType)
+    opt = keypad.registerKeyPressHandler(processPK)
     print opt
     lcd.clear()
     if(opt == 1):
@@ -99,7 +100,7 @@ while True:
     lcd.write_string("Pinjam/Kembali?")
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:P 2:K 3:Back")
-    option = keypad.registerKeyPressHandler(processType)
+    option = keypad.registerKeyPressHandler(processPK)
     print option
     lcd.clear()
     if(option == 1):
