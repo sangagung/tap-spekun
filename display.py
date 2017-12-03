@@ -1,5 +1,5 @@
 from RPLCD import CharLCD
-import RPI.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 
 from pad4pi import rpi_gpio
