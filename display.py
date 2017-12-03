@@ -4,7 +4,7 @@ import time
 
 from pad4pi import rpi_gpio
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 # Setup Keypad
 KEYPAD = [
