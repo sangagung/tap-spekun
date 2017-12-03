@@ -31,7 +31,7 @@ class HD44780:
     def cmd(self, bits, char_mode=False):
         """ Send command to LCD """
 
-        sleep(0.001)
+        sleep(0.2)
         bits=bin(bits)[2:].zfill(8)
 
         GPIO.output(self.pin_rs, char_mode)
@@ -67,6 +67,7 @@ class HD44780:
                 self.cmd(ord(char),True)
 
 if __name__ == '__main__':
+    GPIO.cleanup()
     lcd = HD44780()
     lcd.message("Raspberry Pi\n  Take a byte!")
     print "SASAKN"
