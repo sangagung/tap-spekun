@@ -94,7 +94,7 @@ def wait_input(switch):
         time.sleep(0.01)
 
 while True:
-    lcd.cursor_pos(0,0)
+    lcd.cursor_pos((0,0))
     lcd.write_string("Pinjam/Kembali?")
     lcd.cursor_pos(1,0)
     lcd.write_string("1:P 2:K 3:Back")
