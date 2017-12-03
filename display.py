@@ -20,7 +20,7 @@ factory = rpi_gpio.KeypadFactory()
 
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 
-lcd = CharLCD(cols=16, rows=2, pin_rs=2, pin_e=6, pins_data=[26, 24, 22, 18, 16, 12, 2, 4])
+lcd = CharLCD(cols=16, rows=2, pin_rs=26, pin_e=24, pins_data=[22, 18, 16, 12])
 
 def processPK(key):
     if (key=="1"):
