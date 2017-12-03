@@ -62,6 +62,7 @@ def pinjam():
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:Ya 2:No")
     opt = keypad.registerKeyPressHandler(processPK)
+    print opt
     lcd.clear()
     if(opt == 1):
         server_pinjam()
@@ -99,6 +100,7 @@ while True:
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:P 2:K 3:Back")
     option = keypad.registerKeyPressHandler(processPK)
+    print option
     lcd.clear()
     if(option == 1):
         pinjam()
