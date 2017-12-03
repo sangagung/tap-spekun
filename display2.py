@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 class HD44780:
 
-    def __init__(self, pin_rs=8, pin_e=7, pins_db=[25, 24, 23, 18]):
+    def __init__(self, pin_rs=7, pin_e=8, pins_db=[25, 24, 23, 18]):
 
         self.pin_rs=pin_rs
         self.pin_e=pin_e

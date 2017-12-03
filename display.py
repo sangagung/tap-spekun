@@ -4,7 +4,16 @@ import time
 
 from pad4pi import rpi_gpio
 
+
+pins_data=[18, 23, 24, 25]
+pin_e=7
+pin_rs=8
+
 GPIO.setmode(GPIO.BCM)
+GPIO.setup(self.pin_e, GPIO.OUT)
+GPIO.setup(self.pin_rs, GPIO.OUT)
+for pin in self.pins_db:
+    GPIO.setup(pin, GPIO.OUT)
 
 # Setup Keypad
 KEYPAD = [
@@ -22,7 +31,7 @@ factory = rpi_gpio.KeypadFactory()
 
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 
-lcd = CharLCD(cols=16, rows=2, pin_rs=8, pin_e=7, pins_data=[18, 23, 24, 25])
+lcd = CharLCD(cols=16, rows=2, pin_rs=pin_rs, pin_e=pin_e, pins_data=pins_data)
 
 def processPK(key):
     if (key=="1"):
