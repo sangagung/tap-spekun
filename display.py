@@ -10,9 +10,9 @@ pin_e=7
 pin_rs=8
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(self.pin_e, GPIO.OUT)
-GPIO.setup(self.pin_rs, GPIO.OUT)
-for pin in self.pins_db:
+GPIO.setup(pin_e, GPIO.OUT)
+GPIO.setup(pin_rs, GPIO.OUT)
+for pin in pins_db:
     GPIO.setup(pin, GPIO.OUT)
 
 # Setup Keypad
