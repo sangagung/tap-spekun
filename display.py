@@ -4,6 +4,7 @@ import time
 
 from pad4pi import rpi_gpio
 
+flag = FALSE
 
 pins_data=[18, 23, 24, 25]
 pin_e=7
@@ -33,49 +34,49 @@ keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PI
 
 lcd = CharLCD(cols=16, rows=2, pin_rs=pin_rs, pin_e=pin_e, pins_data=pins_data, numbering_mode=GPIO.BCM)
 
-def processPK(key):
-    print key
-    if (key=="1"):
-        return 1
-    elif (key=="2"):
-        return 2
-    elif (key=="3"):
-        return 3
-    else:
-        return 0
+global opt = keypad.registerKeyPressHandler(processPK)
 
-def processType():
+def processPK(key):
+    global var
+    var = False
+    global string
+    string = key
+
+def processType(key):
     # Loop while waiting for a keypress
-    digitPressed = ""
-    while len(digitPressed) < 4:
-        digitPressed += keypad.getKey()
-        lcd.cursor_pos = (1,len(digitPressed))
-        lcd.write_string(digitPressed)
-    return digitPressed
+    global string
+    if key == '*':
+        string = string[:-1]
+    else:
+        string = string + key
 
 def pinjam():
     lcd.cursor_pos = (0,0)
     lcd.write_string(u"Nomor Sepeda?")
+    opt = keypad.registerKeyPressHandler(processType(key))
+    while len(string) <= 4:
+        time.sleep(0.1)
     no_sepeda = processType()
     lcd.clear()
     lcd.cursor_pos = (0,0)
-    lcd.write_string("Pnjm Spd " + no_sepeda + "?")
+    lcd.write_string("Pnjm Spd " + no_sepeda + "?"))
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:Ya 2:No")
-    opt = keypad.registerKeyPressHandler(processPK)
+    opt = keypad.registerKeyPressHandler(processPK(key)
+    while var:
+        time.sleep(0.1)
     print opt
     lcd.clear()
-    if(opt == 1):
+    if(string == 1):
         server_pinjam()
         lcd.cursor_pos = (0,0)
         lcd.write_string("Yay terpinjam")
         time.sleep(5)
-    elif(opt == 2):
-        opt = pinjam()
+    elif(string == 2):
+        pass
     else:
-        wrong_button("Pnjm Spd " + no_sepeda + "?", "1:Ya 2:No")
-        opt = pinjam()
-    return opt
+        wrong_button()
+        pinjam()
 
 def wrong_button(text_up, text_down):
     lcd.clear()
@@ -83,11 +84,6 @@ def wrong_button(text_up, text_down):
     lcd.write_string("Teken yg bener!")
     time.sleep(3)
     lcd.clear()
-    lcd.cursor_pos = (0,0)
-    lcd.write_string(text_up)
-    lcd.cursor_pos = (1,0)
-    lcd.write_string(text_down)
-
 def kembali():
     server_kirim()
     
@@ -100,12 +96,13 @@ while True:
     lcd.write_string("Pinjam/Kembali?")
     lcd.cursor_pos = (1,0)
     lcd.write_string("1:P 2:K 3:Back")
-    option = keypad.registerKeyPressHandler(processPK)
-    print option
+    opt = keypad.registerKeyPressHandler(processPK)
+    while var:
+        time.sleep(0.1)
     lcd.clear()
-    if(option == 1):
+    if(key == "1"):
         pinjam()
-    elif (option == 2):
+    elif (key == "2"):
         kembali()
     else:
         lcd.clear()
