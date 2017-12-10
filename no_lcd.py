@@ -36,74 +36,64 @@ lcd = CharLCD(cols=16, rows=2, pin_rs=pin_rs, pin_e=pin_e, pins_data=pins_data, 
 
 global opt = keypad.registerKeyPressHandler(processPK)
 
+global var
+global string
+
 def processPK(key):
-    global var
     var = False
     global string
     string = key
 
 def processType(key):
     # Loop while waiting for a keypress
-    global string
     if key == '*':
         string = string[:-1]
     else:
         string = string + key
 
 def pinjam():
-    lcd.cursor_pos = (0,0)
-    lcd.write_string(u"Nomor Sepeda?")
+    print("nomor sepeda?")
     opt = keypad.registerKeyPressHandler(processType(key))
     while len(string) <= 4:
         time.sleep(0.1)
-    no_sepeda = processType()
-    lcd.clear()
-    lcd.cursor_pos = (0,0)
-    lcd.write_string("Pnjm Spd " + no_sepeda + "?"))
-    lcd.cursor_pos = (1,0)
-    lcd.write_string("1:Ya 2:No")
+    no_sepeda = string
+    print("Pnjm Spd " + no_sepeda + "?"))
+    print("1:Ya 2:No")
+    
     opt = keypad.registerKeyPressHandler(processPK(key))
+    var = True
     while var:
         time.sleep(0.1)
-    print opt
-    lcd.clear()
+    print("anda memilih sepeda" + string)
     if(string == 1):
-        server_pinjam()
-        lcd.cursor_pos = (0,0)
-        lcd.write_string("Yay terpinjam")
-        time.sleep(5)
+        print("Yay terpinjam")
     elif(string == 2):
         pass
     else:
-        wrong_button()
         pinjam()
 
 def wrong_button(text_up, text_down):
-    lcd.clear()
-    lcd.cursor_pos = (0,0)
-    lcd.write_string("Teken yg bener!")
-    time.sleep(3)
-    lcd.clear()
+    print("Teken yg bener!")
+
 def kembali():
     server_kirim()
-    
+    print("terima kasih telah mengembalikan!")
+
 def wait_input(switch):
     while not GPIO.input(switch):
         time.sleep(0.01)
 
 while True:
-    lcd.cursor_pos = (0,0)
-    lcd.write_string("Pinjam/Kembali?")
-    lcd.cursor_pos = (1,0)
-    lcd.write_string("1:P 2:K 3:Back")
+    print("Pinjam/Kembali?")
+    print("1:P 2:K 3:Back")
     opt = keypad.registerKeyPressHandler(processPK)
+    var = True
     while var:
         time.sleep(0.1)
-    lcd.clear()
-    if(key == "1"):
+
+    if(string == "1"):
         pinjam()
-    elif (key == "2"):
+    elif (string == "2"):
         kembali()
     else:
-        lcd.clear()
-        lcd.write_string("Salah Pencet")
+        print("Salah Pencet")
